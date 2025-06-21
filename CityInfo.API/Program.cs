@@ -2,7 +2,7 @@ using CityInfo.API.Models;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.StaticFiles;
-using Microsoft.OpenApi.Models; 
+using Microsoft.OpenApi.Models;
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,12 +14,9 @@ builder.Services.AddControllers(options =>
     //options.ReturnHttpNotAcceptable = true;
     options.OutputFormatters.Add(new StringOutputFormatter());
 })
+ .AddNewtonsoftJson()
 .AddXmlDataContractSerializerFormatters();
 
-// Register FluentValidation (v12+)
-//builder.Services.AddValidatorsFromAssemblyContaining(typeof(CityInfo.API.Models.PointOfInterestCreateDtoValidator));
-
-//builder.Services.AddScoped<IValidator<PointOfInterestCreateDto>, PointOfInterestCreateDtoValidator>();
 builder.Services.AddScoped<IValidator<Person>, PersonValidator>();
 
 builder.Services.AddProblemDetails(options =>
@@ -45,7 +42,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger(); // Ensure Swagger middleware is added
     app.UseSwaggerUI();
-}                   
+}
 
 app.UseHttpsRedirection();
 

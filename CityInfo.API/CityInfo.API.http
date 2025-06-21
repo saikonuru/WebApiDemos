@@ -3,6 +3,17 @@
 GET {{base_url}}/api/weatherforecast/GetWeatherForecast
 Accept: application/json
 
+###   
+
+POST {{base_url}}/api/person/
+content-type: application/json
+{
+
+  "firstname": "sairam",
+  "lastname": "konuru",
+  "age":23,
+  "email":"sai@gmail.com"
+}
 ###
 
 GET {{base_url}}/api/cities/
@@ -20,7 +31,7 @@ Accept: application/json
 
 ###
 
-@pointOfInterest = 1
+@pointOfInterest = 3
 GET {{base_url}}/api/cities/{{cityId}}/pointofinterest/{{pointOfInterest}}
 Accept: application/json
 
@@ -29,21 +40,34 @@ Accept: application/json
 POST {{base_url}}/api/cities/{{cityId}}/pointofinterest/
 content-type: application/json
 {
-
-  "name" :"BHEL,
+  "name" :"BHEL6",
   "description": "Bharat heavy electronics limited"
 }
 
 ###
-
-
-POST {{base_url}}/api/person/
+PUT {{base_url}}/api/cities/{{cityId}}/pointofinterest/{{pointOfInterest}}
 content-type: application/json
 {
-
-  "firstname": "sairam",
-  "lastname": "konuru",
-  "age":23,
-  "email":"sai@gmail.com"
+  "name" :"BHEL3",
+  "description": "Bharat heavy electronics limited3"
 }
+
 ###
+
+PATCH {{base_url}}/api/cities/{{cityId}}/pointofinterest/{{pointOfInterest}}
+content-type: application/json
+[
+  {
+    "op":"replace",
+    "path":"/name",
+    "value" :"BHEL5"
+  },
+  {
+    "op":"replace",
+    "path":"/description",
+    "value" :"updated- BHEL5"
+  }
+]
+###
+DELETE {{base_url}}/api/cities/{{cityId}}/pointofinterest/{{pointOfInterest}}
+Accept: application/json
