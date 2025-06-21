@@ -1,16 +1,17 @@
 using Microsoft.AspNetCore.StaticFiles;
-using Microsoft.OpenApi.Models; // Add this using directive for Swagger support
+using Microsoft.OpenApi.Models; 
+using Microsoft.AspNetCore.Mvc.Formatters;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-// builder.Services.AddControllers();
-//builder.Services.AddControllers(options => { options.ReturnHttpNotAcceptable = true; });
-
-builder.Services.AddControllers(options=>
+builder.Services.AddControllers(options =>
 {
-    options.ReturnHttpNotAcceptable = true;
-}).AddXmlDataContractSerializerFormatters(); // Add XML support
+    //options.ReturnHttpNotAcceptable = true;
+    options.OutputFormatters.Add(new StringOutputFormatter());
+})
+.AddXmlDataContractSerializerFormatters();
 
 builder.Services.AddProblemDetails(options =>
 {
@@ -22,11 +23,10 @@ builder.Services.AddProblemDetails(options =>
 });
 
 //Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
- builder.Services.AddSwaggerGen(c =>
- {
-     c.SwaggerDoc("v1", new OpenApiInfo { Title = "CityInfo API", Version = "v1" });
-
- });
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "CityInfo API", Version = "v1" });
+});
 
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
 var app = builder.Build();
@@ -36,7 +36,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger(); // Ensure Swagger middleware is added
     app.UseSwaggerUI();
-}
+}                   
 
 app.UseHttpsRedirection();
 
