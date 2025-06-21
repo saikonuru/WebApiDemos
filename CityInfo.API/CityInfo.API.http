@@ -20,7 +20,7 @@ Accept: application/json
 
 ###
 
-@pointOfInterest = 4
+@pointOfInterest = 1
 GET {{base_url}}/api/cities/{{cityId}}/pointofinterest/{{pointOfInterest}}
 Accept: application/json
 
@@ -29,9 +29,21 @@ Accept: application/json
 POST {{base_url}}/api/cities/{{cityId}}/pointofinterest/
 content-type: application/json
 {
-  "id" : 99,
-  "name": "BHEL",
+
+  "name" :"BHEL,
   "description": "Bharat heavy electronics limited"
 }
 
+###
+
+
+POST {{base_url}}/api/person/
+content-type: application/json
+{
+
+  "firstname": "sairam",
+  "lastname": "konuru",
+  "age":23,
+  "email":"sai@gmail.com"
+}
 ###

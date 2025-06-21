@@ -1,8 +1,10 @@
-// Ignore Spelling: Dto
+// Ignore Spelling: Dto validator
 
 using CityInfo.API.Models;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace CityInfo.API.Controllers
 {
@@ -10,6 +12,7 @@ namespace CityInfo.API.Controllers
     [ApiController]
     public class PointOfInterestController : ControllerBase
     {
+
         [HttpGet]
         public ActionResult<PointOfInterestDto> GetPointOfInterests(int cityId)
         {
@@ -25,7 +28,7 @@ namespace CityInfo.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreatePointOfInterest(int cityId, PointOfInterestCreateDto pointOfInterestCreateDto)
+        public IActionResult CreatePointOfInterest(int cityId, [FromBody] PointOfInterestCreateDto pointOfInterestCreateDto)
         {
             var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
 
@@ -33,7 +36,7 @@ namespace CityInfo.API.Controllers
 
             var pointOfInterestList = city.PointOfInterest.ToList();
 
-            var maxPoi = pointOfInterestList.Max(p => p.Id);
+            var maxPoi = pointOfInterestList.Count > 0 ? pointOfInterestList.Max(p => p.Id) : 0;
 
             PointOfInterestDto poi = new()
             {

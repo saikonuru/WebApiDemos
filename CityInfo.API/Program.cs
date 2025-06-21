@@ -1,6 +1,9 @@
+using CityInfo.API.Models;
+using FluentValidation;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.OpenApi.Models; 
-using Microsoft.AspNetCore.Mvc.Formatters;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +15,12 @@ builder.Services.AddControllers(options =>
     options.OutputFormatters.Add(new StringOutputFormatter());
 })
 .AddXmlDataContractSerializerFormatters();
+
+// Register FluentValidation (v12+)
+//builder.Services.AddValidatorsFromAssemblyContaining(typeof(CityInfo.API.Models.PointOfInterestCreateDtoValidator));
+
+//builder.Services.AddScoped<IValidator<PointOfInterestCreateDto>, PointOfInterestCreateDtoValidator>();
+builder.Services.AddScoped<IValidator<Person>, PersonValidator>();
 
 builder.Services.AddProblemDetails(options =>
 {
