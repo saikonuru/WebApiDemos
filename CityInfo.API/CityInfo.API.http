@@ -1,6 +1,37 @@
-@CityInfo.API_HostAddress = http://localhost:5096
+@base_url = http://localhost:5096
 
-GET {{CityInfo.API_HostAddress}}/api/weatherforecast/GetWeatherForecast
+GET {{base_url}}/api/weatherforecast/GetWeatherForecast
 Accept: application/json
+
+###
+
+GET {{base_url}}/api/cities/
+Accept: application/json
+
+###
+GET {{base_url}}/api/cities/
+Accept: application/xml
+
+###
+
+@cityId = 1
+GET {{base_url}}/api/cities/{{cityId}}
+Accept: application/json
+
+###
+
+@pointOfInterest = 4
+GET {{base_url}}/api/cities/{{cityId}}/pointofinterest/{{pointOfInterest}}
+Accept: application/json
+
+###
+
+POST {{base_url}}/api/cities/{{cityId}}/pointofinterest/
+content-type: application/json
+{
+  "id" : 99,
+  "name": "BHEL",
+  "description": "Bharat heavy electronics limited"
+}
 
 ###
