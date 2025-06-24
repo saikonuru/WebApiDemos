@@ -31,7 +31,7 @@ Accept: application/json
 
 ###
 
-@pointOfInterest = 3
+@pointOfInterest = 2
 GET {{base_url}}/api/cities/{{cityId}}/pointofinterest/{{pointOfInterest}}
 Accept: application/json
 
@@ -71,3 +71,20 @@ content-type: application/json
 ###
 DELETE {{base_url}}/api/cities/{{cityId}}/pointofinterest/{{pointOfInterest}}
 Accept: application/json
+
+###
+GET {{base_url}}/api/Files/1
+content-type: application/pdf
+
+###
+
+POST {{base_url}}/api/Files/
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="1.Migrate a Website to Azure Web Apps.pdf"
+Content-Type: application/pdf
+
+< C:\Users\saira\source\repos\CityInfo.API\CityInfo.API\1.Migrate a Website to Azure Web Apps.pdf
+--boundary--
+###
