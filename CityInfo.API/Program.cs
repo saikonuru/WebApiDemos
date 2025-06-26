@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Logging.AddConsole();
 
 // Add services to the container.
 
@@ -36,6 +37,12 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
 var app = builder.Build();
+
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

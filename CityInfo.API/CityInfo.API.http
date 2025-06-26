@@ -25,8 +25,12 @@ Accept: application/xml
 
 ###
 
-@cityId = 1
+@cityId = 11
 GET {{base_url}}/api/cities/{{cityId}}
+Accept: application/json
+
+###
+GET {{base_url}}/api/cities/{{cityId}}/pointofinterest/
 Accept: application/json
 
 ###
