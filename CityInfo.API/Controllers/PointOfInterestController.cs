@@ -1,6 +1,7 @@
 // Ignore Spelling: Dto validator
 
 using CityInfo.API.Models;
+using CityInfo.API.Services;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
@@ -12,14 +13,22 @@ namespace CityInfo.API.Controllers
 {
     [Route("api/cities/{cityId}/pointofinterest")]
     [ApiController]
-    public class PointOfInterestController(ILogger<PointOfInterestController> logger) : ControllerBase
+    public class PointOfInterestController : ControllerBase
     {
-        private readonly ILogger<PointOfInterestController> _logger = logger;
+        private readonly ILogger<PointOfInterestController> _logger;
+        private readonly LocalMailService _localMailService;
+
+        public PointOfInterestController(ILogger<PointOfInterestController> logger,LocalMailService localMailService)
+        {
+            _logger = logger ?? throw new ArgumentException(null, nameof(logger));
+            _localMailService = localMailService ?? throw new ArgumentException(null, nameof(localMailService));
+        }
+
 
         [HttpGet]
         public ActionResult<PointOfInterestDto> GetPointOfInterests(int cityId)
         {
-            throw new Exception("A sample exception");
+            //throw new Exception("A sample exception");
 
             try
             {
@@ -143,6 +152,9 @@ namespace CityInfo.API.Controllers
 
             pointOfInterestList.Remove(poi);
             city.PointOfInterest = pointOfInterestList;
+            string message = $"City with {cityId} has been deleted";
+            _logger.LogInformation(message);
+            _localMailService.SenMail(message);
 
             return NoContent();
         }
