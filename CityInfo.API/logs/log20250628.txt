@@ -1,0 +1,139 @@
+2025-06-28 21:58:47.088 +05:30 [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+2025-06-28 21:58:47.208 +05:30 [DBG] Hosting starting
+2025-06-28 21:58:47.224 +05:30 [DBG] Middleware loaded
+2025-06-28 21:58:47.226 +05:30 [DBG] Middleware loaded. Script /_framework/aspnetcore-browser-refresh.js (16509 B).
+2025-06-28 21:58:47.228 +05:30 [DBG] Middleware loaded. Script /_framework/blazor-hotreload.js (799 B).
+2025-06-28 21:58:47.283 +05:30 [DBG] Middleware configuration started with options: {AllowedHosts = *, AllowEmptyHosts = True, IncludeFailureMessage = True}
+2025-06-28 21:58:47.287 +05:30 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2025-06-28 21:58:47.295 +05:30 [DBG] Middleware loaded: DOTNET_MODIFIABLE_ASSEMBLIES=debug, __ASPNETCORE_BROWSER_TOOLS=true
+2025-06-28 21:58:47.349 +05:30 [INF] Now listening on: http://localhost:5096
+2025-06-28 21:58:47.351 +05:30 [DBG] Loaded hosting startup assembly CityInfo.API
+2025-06-28 21:58:47.352 +05:30 [DBG] Loaded hosting startup assembly Microsoft.WebTools.ApiEndpointDiscovery
+2025-06-28 21:58:47.353 +05:30 [DBG] Loaded hosting startup assembly Microsoft.AspNetCore.Watch.BrowserRefresh
+2025-06-28 21:58:47.354 +05:30 [DBG] Loaded hosting startup assembly Microsoft.WebTools.BrowserLink.Net
+2025-06-28 21:58:47.360 +05:30 [DBG] Executing API description provider 'EndpointMetadataApiDescriptionProvider' from assembly Microsoft.AspNetCore.Mvc.ApiExplorer v9.0.0.0.
+2025-06-28 21:58:47.362 +05:30 [DBG] Executing API description provider 'DefaultApiDescriptionProvider' from assembly Microsoft.AspNetCore.Mvc.ApiExplorer v9.0.0.0.
+2025-06-28 21:58:47.378 +05:30 [DBG] Executing API description provider 'JsonPatchOperationsArrayProvider' from assembly Microsoft.AspNetCore.Mvc.NewtonsoftJson v9.0.6.0.
+2025-06-28 21:58:47.425 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-06-28 21:58:47.426 +05:30 [INF] Hosting environment: Development
+2025-06-28 21:58:47.427 +05:30 [INF] Content root path: C:\Users\saira\source\repos\CityInfo.API\CityInfo.API
+2025-06-28 21:58:47.429 +05:30 [DBG] Hosting started
+2025-06-28 21:58:55.024 +05:30 [DBG] Connection id "0HNDMC3G2DO8V" accepted.
+2025-06-28 21:58:55.027 +05:30 [DBG] Connection id "0HNDMC3G2DO8V" started.
+2025-06-28 21:58:55.062 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/cities/1/pointofinterest/ - null null
+2025-06-28 21:58:55.101 +05:30 [DBG] 1 candidate(s) found for the request path '/api/cities/1/pointofinterest/'
+2025-06-28 21:58:55.104 +05:30 [DBG] Endpoint 'CityInfo.API.Controllers.PointOfInterestController.GetPointOfInterests (CityInfo.API)' with route pattern 'api/cities/{cityId}/pointofinterest' is valid for the request path '/api/cities/1/pointofinterest/'
+2025-06-28 21:58:55.107 +05:30 [DBG] Request matched endpoint 'CityInfo.API.Controllers.PointOfInterestController.GetPointOfInterests (CityInfo.API)'
+2025-06-28 21:58:55.119 +05:30 [DBG] Static files was skipped as the request already matched an endpoint.
+2025-06-28 21:58:55.123 +05:30 [WRN] Failed to determine the https port for redirect.
+2025-06-28 21:58:55.126 +05:30 [INF] Executing endpoint 'CityInfo.API.Controllers.PointOfInterestController.GetPointOfInterests (CityInfo.API)'
+2025-06-28 21:58:55.154 +05:30 [INF] Route matched with {action = "GetPointOfInterests", controller = "PointOfInterest"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[CityInfo.API.Models.PointOfInterestDto] GetPointOfInterests(Int32) on controller CityInfo.API.Controllers.PointOfInterestController (CityInfo.API).
+2025-06-28 21:58:55.160 +05:30 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2025-06-28 21:58:55.161 +05:30 [DBG] Execution plan of resource filters (in the following order): ["None"]
+2025-06-28 21:58:55.163 +05:30 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2025-06-28 21:58:55.166 +05:30 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2025-06-28 21:58:55.168 +05:30 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000)"]
+2025-06-28 21:58:55.175 +05:30 [DBG] Executing controller factory for controller CityInfo.API.Controllers.PointOfInterestController (CityInfo.API)
+2025-06-28 21:58:55.179 +05:30 [DBG] Executed controller factory for controller CityInfo.API.Controllers.PointOfInterestController (CityInfo.API)
+2025-06-28 21:58:55.199 +05:30 [DBG] Attempting to bind parameter 'cityId' of type 'System.Int32' ...
+2025-06-28 21:58:55.203 +05:30 [DBG] Attempting to bind parameter 'cityId' of type 'System.Int32' using the name 'cityId' in request data ...
+2025-06-28 21:58:55.206 +05:30 [DBG] Done attempting to bind parameter 'cityId' of type 'System.Int32'.
+2025-06-28 21:58:55.208 +05:30 [DBG] Done attempting to bind parameter 'cityId' of type 'System.Int32'.
+2025-06-28 21:58:55.210 +05:30 [DBG] Attempting to validate the bound parameter 'cityId' of type 'System.Int32' ...
+2025-06-28 21:58:55.214 +05:30 [DBG] Done attempting to validate the bound parameter 'cityId' of type 'System.Int32'.
+2025-06-28 21:59:12.773 +05:30 [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+2025-06-28 21:59:12.889 +05:30 [DBG] Hosting starting
+2025-06-28 21:59:12.906 +05:30 [DBG] Middleware loaded
+2025-06-28 21:59:12.908 +05:30 [DBG] Middleware loaded. Script /_framework/aspnetcore-browser-refresh.js (16509 B).
+2025-06-28 21:59:12.910 +05:30 [DBG] Middleware loaded. Script /_framework/blazor-hotreload.js (799 B).
+2025-06-28 21:59:12.959 +05:30 [DBG] Middleware configuration started with options: {AllowedHosts = *, AllowEmptyHosts = True, IncludeFailureMessage = True}
+2025-06-28 21:59:12.962 +05:30 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2025-06-28 21:59:12.970 +05:30 [DBG] Middleware loaded: DOTNET_MODIFIABLE_ASSEMBLIES=debug, __ASPNETCORE_BROWSER_TOOLS=true
+2025-06-28 21:59:13.018 +05:30 [INF] Now listening on: http://localhost:5096
+2025-06-28 21:59:13.019 +05:30 [DBG] Loaded hosting startup assembly CityInfo.API
+2025-06-28 21:59:13.020 +05:30 [DBG] Loaded hosting startup assembly Microsoft.WebTools.ApiEndpointDiscovery
+2025-06-28 21:59:13.021 +05:30 [DBG] Loaded hosting startup assembly Microsoft.AspNetCore.Watch.BrowserRefresh
+2025-06-28 21:59:13.022 +05:30 [DBG] Loaded hosting startup assembly Microsoft.WebTools.BrowserLink.Net
+2025-06-28 21:59:13.028 +05:30 [DBG] Executing API description provider 'EndpointMetadataApiDescriptionProvider' from assembly Microsoft.AspNetCore.Mvc.ApiExplorer v9.0.0.0.
+2025-06-28 21:59:13.030 +05:30 [DBG] Executing API description provider 'DefaultApiDescriptionProvider' from assembly Microsoft.AspNetCore.Mvc.ApiExplorer v9.0.0.0.
+2025-06-28 21:59:13.052 +05:30 [DBG] Executing API description provider 'JsonPatchOperationsArrayProvider' from assembly Microsoft.AspNetCore.Mvc.NewtonsoftJson v9.0.6.0.
+2025-06-28 21:59:13.185 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-06-28 21:59:13.186 +05:30 [INF] Hosting environment: Development
+2025-06-28 21:59:13.187 +05:30 [INF] Content root path: C:\Users\saira\source\repos\CityInfo.API\CityInfo.API
+2025-06-28 21:59:13.188 +05:30 [DBG] Hosting started
+2025-06-28 21:59:23.574 +05:30 [DBG] Connection id "0HNDMC3OIMGE5" accepted.
+2025-06-28 21:59:23.577 +05:30 [DBG] Connection id "0HNDMC3OIMGE5" started.
+2025-06-28 21:59:23.601 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/cities/1/pointofinterest/ - null null
+2025-06-28 21:59:23.634 +05:30 [DBG] 1 candidate(s) found for the request path '/api/cities/1/pointofinterest/'
+2025-06-28 21:59:23.637 +05:30 [DBG] Endpoint 'CityInfo.API.Controllers.PointOfInterestController.GetPointOfInterests (CityInfo.API)' with route pattern 'api/cities/{cityId}/pointofinterest' is valid for the request path '/api/cities/1/pointofinterest/'
+2025-06-28 21:59:23.640 +05:30 [DBG] Request matched endpoint 'CityInfo.API.Controllers.PointOfInterestController.GetPointOfInterests (CityInfo.API)'
+2025-06-28 21:59:23.648 +05:30 [DBG] Static files was skipped as the request already matched an endpoint.
+2025-06-28 21:59:23.650 +05:30 [WRN] Failed to determine the https port for redirect.
+2025-06-28 21:59:23.653 +05:30 [INF] Executing endpoint 'CityInfo.API.Controllers.PointOfInterestController.GetPointOfInterests (CityInfo.API)'
+2025-06-28 21:59:23.668 +05:30 [INF] Route matched with {action = "GetPointOfInterests", controller = "PointOfInterest"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[CityInfo.API.Models.PointOfInterestDto] GetPointOfInterests(Int32) on controller CityInfo.API.Controllers.PointOfInterestController (CityInfo.API).
+2025-06-28 21:59:23.673 +05:30 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2025-06-28 21:59:23.674 +05:30 [DBG] Execution plan of resource filters (in the following order): ["None"]
+2025-06-28 21:59:23.676 +05:30 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2025-06-28 21:59:23.678 +05:30 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2025-06-28 21:59:23.679 +05:30 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000)"]
+2025-06-28 21:59:23.682 +05:30 [DBG] Executing controller factory for controller CityInfo.API.Controllers.PointOfInterestController (CityInfo.API)
+2025-06-28 21:59:23.684 +05:30 [DBG] Executed controller factory for controller CityInfo.API.Controllers.PointOfInterestController (CityInfo.API)
+2025-06-28 21:59:23.693 +05:30 [DBG] Attempting to bind parameter 'cityId' of type 'System.Int32' ...
+2025-06-28 21:59:23.696 +05:30 [DBG] Attempting to bind parameter 'cityId' of type 'System.Int32' using the name 'cityId' in request data ...
+2025-06-28 21:59:23.698 +05:30 [DBG] Done attempting to bind parameter 'cityId' of type 'System.Int32'.
+2025-06-28 21:59:23.699 +05:30 [DBG] Done attempting to bind parameter 'cityId' of type 'System.Int32'.
+2025-06-28 21:59:23.700 +05:30 [DBG] Attempting to validate the bound parameter 'cityId' of type 'System.Int32' ...
+2025-06-28 21:59:23.703 +05:30 [DBG] Done attempting to validate the bound parameter 'cityId' of type 'System.Int32'.
+2025-06-28 22:00:00.243 +05:30 [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+2025-06-28 22:00:00.353 +05:30 [DBG] Hosting starting
+2025-06-28 22:00:00.366 +05:30 [DBG] Middleware loaded
+2025-06-28 22:00:00.368 +05:30 [DBG] Middleware loaded. Script /_framework/aspnetcore-browser-refresh.js (16509 B).
+2025-06-28 22:00:00.371 +05:30 [DBG] Middleware loaded. Script /_framework/blazor-hotreload.js (799 B).
+2025-06-28 22:00:00.423 +05:30 [DBG] Middleware configuration started with options: {AllowedHosts = *, AllowEmptyHosts = True, IncludeFailureMessage = True}
+2025-06-28 22:00:00.427 +05:30 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2025-06-28 22:00:00.435 +05:30 [DBG] Middleware loaded: DOTNET_MODIFIABLE_ASSEMBLIES=debug, __ASPNETCORE_BROWSER_TOOLS=true
+2025-06-28 22:00:00.484 +05:30 [INF] Now listening on: http://localhost:5096
+2025-06-28 22:00:00.485 +05:30 [DBG] Loaded hosting startup assembly CityInfo.API
+2025-06-28 22:00:00.487 +05:30 [DBG] Loaded hosting startup assembly Microsoft.WebTools.ApiEndpointDiscovery
+2025-06-28 22:00:00.489 +05:30 [DBG] Loaded hosting startup assembly Microsoft.AspNetCore.Watch.BrowserRefresh
+2025-06-28 22:00:00.490 +05:30 [DBG] Loaded hosting startup assembly Microsoft.WebTools.BrowserLink.Net
+2025-06-28 22:00:00.498 +05:30 [DBG] Executing API description provider 'EndpointMetadataApiDescriptionProvider' from assembly Microsoft.AspNetCore.Mvc.ApiExplorer v9.0.0.0.
+2025-06-28 22:00:00.499 +05:30 [DBG] Executing API description provider 'DefaultApiDescriptionProvider' from assembly Microsoft.AspNetCore.Mvc.ApiExplorer v9.0.0.0.
+2025-06-28 22:00:00.523 +05:30 [DBG] Executing API description provider 'JsonPatchOperationsArrayProvider' from assembly Microsoft.AspNetCore.Mvc.NewtonsoftJson v9.0.6.0.
+2025-06-28 22:00:00.657 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-06-28 22:00:00.658 +05:30 [INF] Hosting environment: Development
+2025-06-28 22:00:00.659 +05:30 [INF] Content root path: C:\Users\saira\source\repos\CityInfo.API\CityInfo.API
+2025-06-28 22:00:00.660 +05:30 [DBG] Hosting started
+2025-06-28 22:00:11.052 +05:30 [DBG] Connection id "0HNDMC46NFK9C" accepted.
+2025-06-28 22:00:11.054 +05:30 [DBG] Connection id "0HNDMC46NFK9C" started.
+2025-06-28 22:00:11.079 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/cities/1/pointofinterest/ - null null
+2025-06-28 22:00:11.111 +05:30 [DBG] 1 candidate(s) found for the request path '/api/cities/1/pointofinterest/'
+2025-06-28 22:00:11.114 +05:30 [DBG] Endpoint 'CityInfo.API.Controllers.PointOfInterestController.GetPointOfInterests (CityInfo.API)' with route pattern 'api/cities/{cityId}/pointofinterest' is valid for the request path '/api/cities/1/pointofinterest/'
+2025-06-28 22:00:11.117 +05:30 [DBG] Request matched endpoint 'CityInfo.API.Controllers.PointOfInterestController.GetPointOfInterests (CityInfo.API)'
+2025-06-28 22:00:11.126 +05:30 [DBG] Static files was skipped as the request already matched an endpoint.
+2025-06-28 22:00:11.128 +05:30 [WRN] Failed to determine the https port for redirect.
+2025-06-28 22:00:11.131 +05:30 [INF] Executing endpoint 'CityInfo.API.Controllers.PointOfInterestController.GetPointOfInterests (CityInfo.API)'
+2025-06-28 22:00:11.146 +05:30 [INF] Route matched with {action = "GetPointOfInterests", controller = "PointOfInterest"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[CityInfo.API.Models.PointOfInterestDto] GetPointOfInterests(Int32) on controller CityInfo.API.Controllers.PointOfInterestController (CityInfo.API).
+2025-06-28 22:00:11.151 +05:30 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2025-06-28 22:00:11.152 +05:30 [DBG] Execution plan of resource filters (in the following order): ["None"]
+2025-06-28 22:00:11.154 +05:30 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2025-06-28 22:00:11.157 +05:30 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2025-06-28 22:00:11.159 +05:30 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000)"]
+2025-06-28 22:00:11.161 +05:30 [DBG] Executing controller factory for controller CityInfo.API.Controllers.PointOfInterestController (CityInfo.API)
+2025-06-28 22:00:11.163 +05:30 [DBG] Executed controller factory for controller CityInfo.API.Controllers.PointOfInterestController (CityInfo.API)
+2025-06-28 22:00:11.173 +05:30 [DBG] Attempting to bind parameter 'cityId' of type 'System.Int32' ...
+2025-06-28 22:00:11.175 +05:30 [DBG] Attempting to bind parameter 'cityId' of type 'System.Int32' using the name 'cityId' in request data ...
+2025-06-28 22:00:11.177 +05:30 [DBG] Done attempting to bind parameter 'cityId' of type 'System.Int32'.
+2025-06-28 22:00:11.178 +05:30 [DBG] Done attempting to bind parameter 'cityId' of type 'System.Int32'.
+2025-06-28 22:00:11.179 +05:30 [DBG] Attempting to validate the bound parameter 'cityId' of type 'System.Int32' ...
+2025-06-28 22:00:11.182 +05:30 [DBG] Done attempting to validate the bound parameter 'cityId' of type 'System.Int32'.
+2025-06-28 22:00:11.233 +05:30 [FTL] An exception while getting point of interest for the city with id 1
+2025-06-28 22:00:11.237 +05:30 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.NewtonsoftJsonOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.XmlDataContractSerializerOutputFormatter"]
+2025-06-28 22:00:11.243 +05:30 [DBG] Attempting to select an output formatter based on Accept header '["application/json"]'.
+2025-06-28 22:00:11.246 +05:30 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.NewtonsoftJsonOutputFormatter' and content type 'application/json' to write the response.
+2025-06-28 22:00:11.247 +05:30 [INF] Executing ObjectResult, writing value of type 'System.String'.
+2025-06-28 22:00:11.304 +05:30 [INF] Executed action CityInfo.API.Controllers.PointOfInterestController.GetPointOfInterests (CityInfo.API) in 141.5421ms
+2025-06-28 22:00:11.308 +05:30 [INF] Executed endpoint 'CityInfo.API.Controllers.PointOfInterestController.GetPointOfInterests (CityInfo.API)'
+2025-06-28 22:00:11.311 +05:30 [ERR] HTTP GET /api/cities/1/pointofinterest/ responded 500 in 181.9673 ms
+2025-06-28 22:00:11.314 +05:30 [DBG] Connection id "0HNDMC46NFK9C" completed keep alive response.
+2025-06-28 22:00:11.317 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/cities/1/pointofinterest/ - 500 48 application/json; charset=utf-8 242.2916ms
