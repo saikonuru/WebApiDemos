@@ -1,4 +1,8 @@
-@base_url = http://localhost:5096
+#production port 
+@port = 53847
+#development  port
+# @port =   5096 
+@base_url = http://localhost:{{port}}
 
 GET {{base_url}}/api/weatherforecast/GetWeatherForecast
 Accept: application/json

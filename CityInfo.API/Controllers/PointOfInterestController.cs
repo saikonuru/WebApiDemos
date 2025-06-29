@@ -16,12 +16,14 @@ namespace CityInfo.API.Controllers
     public class PointOfInterestController : ControllerBase
     {
         private readonly ILogger<PointOfInterestController> _logger;
-        private readonly LocalMailService _localMailService;
+        private readonly IMailService _mailService;
+        private readonly CitiesDataStore _citiesDataStore;
 
-        public PointOfInterestController(ILogger<PointOfInterestController> logger,LocalMailService localMailService)
+        public PointOfInterestController(ILogger<PointOfInterestController> logger, IMailService mailService, CitiesDataStore citiesDataStore)
         {
             _logger = logger ?? throw new ArgumentException(null, nameof(logger));
-            _localMailService = localMailService ?? throw new ArgumentException(null, nameof(localMailService));
+            _mailService = mailService ?? throw new ArgumentException(null, nameof(mailService));
+            _citiesDataStore = citiesDataStore ?? throw new ArgumentException(null, nameof(citiesDataStore));
         }
 
 
@@ -33,7 +35,7 @@ namespace CityInfo.API.Controllers
             try
             {
                 throw new Exception("A sample exception");
-                var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
+                var city = _citiesDataStore.Cities.FirstOrDefault(c => c.Id == cityId);
                 if (city == null)
                 {
                     _logger.LogInformation($"City with id {cityId} wasn't found when accessing points of interest");
@@ -52,14 +54,14 @@ namespace CityInfo.API.Controllers
         [HttpGet("{pointInterestId}", Name = "GetPointOfInterest")]
         public ActionResult<PointOfInterestDto> GetPointOfInterest(int cityId, int pointInterestId)
         {
-            var pointOfInterest = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId)?.PointOfInterest.FirstOrDefault(p => p.Id == pointInterestId);
+            var pointOfInterest = _citiesDataStore.Cities.FirstOrDefault(c => c.Id == cityId)?.PointOfInterest.FirstOrDefault(p => p.Id == pointInterestId);
             return (pointOfInterest is null) ? NotFound() : Ok(pointOfInterest);
         }
 
         [HttpPost]
         public IActionResult CreatePointOfInterest(int cityId, PointOfInterestCreateDto pointOfInterestCreateDto)
         {
-            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
+            var city = _citiesDataStore.Cities.FirstOrDefault(c => c.Id == cityId);
 
             if (city is null) return NotFound();
 
@@ -84,7 +86,7 @@ namespace CityInfo.API.Controllers
         [HttpPut("{pointInterestId}")]
         public IActionResult UpdatePointOfInterest(int cityId, int pointInterestId, PointOfInterestDto pointOfInterestDto)
         {
-            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
+            var city = _citiesDataStore.Cities.FirstOrDefault(c => c.Id == cityId);
 
             if (city is null) return NotFound();
 
@@ -106,7 +108,7 @@ namespace CityInfo.API.Controllers
         [HttpPatch("{pointInterestId}")]
         public IActionResult PatchPointOfInterest(int cityId, int pointInterestId, JsonPatchDocument<PointOfInterestUpdateDto> patchDocument)
         {
-            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
+            var city = _citiesDataStore.Cities.FirstOrDefault(c => c.Id == cityId);
 
             if (city is null) return NotFound();
 
@@ -140,7 +142,7 @@ namespace CityInfo.API.Controllers
         [HttpDelete("{pointInterestId}")]
         public IActionResult DeletePointOfInterest(int cityId, int pointInterestId)
         {
-            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
+            var city = _citiesDataStore.Cities.FirstOrDefault(c => c.Id == cityId);
 
             if (city is null) return NotFound();
 
@@ -154,7 +156,7 @@ namespace CityInfo.API.Controllers
             city.PointOfInterest = pointOfInterestList;
             string message = $"City with {cityId} has been deleted";
             _logger.LogInformation(message);
-            _localMailService.SenMail(message);
+            _mailService.SenMail(message);
 
             return NoContent();
         }

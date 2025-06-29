@@ -1,19 +1,13 @@
-// Pseudocode plan:
-// 1. Ensure Serilog is configured before the host is built.
-// 2. Use Serilog for logging by calling UseSerilog() on the host builder.
-// 3. Make sure the log file path is valid and writable (use "logs/log.txt" instead of "/logs/log.txt" for cross-platform compatibility).
-// 4. Remove commented-out or conflicting logging code.
-// 5. Ensure app.UseSerilogRequestLogging() is called to log HTTP requests.
-
+using CityInfo.API;
 using CityInfo.API.Models;
+using CityInfo.API.Services;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.OpenApi.Models;
-using System;
 using Serilog;
 using Serilog.AspNetCore;
-using CityInfo.API.Services;
+using System;
 
 Log.Logger = new LoggerConfiguration()
                  .MinimumLevel.Debug()
@@ -33,6 +27,7 @@ builder.Services.AddControllers(options =>
  .AddXmlDataContractSerializerFormatters();
 
 builder.Services.AddScoped<IValidator<Person>, PersonValidator>();
+builder.Services.AddSingleton<CitiesDataStore>();
 
 builder.Services.AddProblemDetails(options =>
 {
@@ -49,7 +44,12 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
-builder.Services.AddTransient<LocalMailService>();
+
+#if DEBUG
+builder.Services.AddTransient<IMailService, LocalMailService>();
+#else
+builder.Services.AddTransient<IMailService, CloudMailService>();
+#endif
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
