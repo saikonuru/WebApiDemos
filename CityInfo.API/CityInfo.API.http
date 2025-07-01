@@ -1,7 +1,7 @@
 #production port 
-@port = 53847
+# @port = 53847 #IIS Production
 #development  port
-# @port =   5096 
+@port =   5096 
 @base_url = http://localhost:{{port}}
 
 GET {{base_url}}/api/weatherforecast/GetWeatherForecast

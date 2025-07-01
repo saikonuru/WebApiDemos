@@ -30,7 +30,12 @@ builder.Services.AddControllers(options =>
 
 builder.Services.AddScoped<IValidator<Person>, PersonValidator>();
 builder.Services.AddSingleton<CitiesDataStore>();
-builder.Services.AddDbContext<CityInfoContext>(dbContextOptions => dbContextOptions.UseSqlite("Data Source=CityInfo.db"));
+builder.Services.AddDbContext<CityInfoContext>(dbContextOptions => dbContextOptions.UseSqlite(
+    builder.Configuration["ConnectionStrings:CityInfoDBConnectionString"]
+    ));
+
+builder.Services.AddScoped<ICityRepository, CityRepository>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddProblemDetails(options =>
 {
