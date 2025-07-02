@@ -34,12 +34,17 @@ GET {{base_url}}/api/cities/{{cityId}}
 Accept: application/json
 
 ###
+GET {{base_url}}/api/cities/{{cityId}}/?includePointOfInterests=true
+Accept: application/json
+
+
+###
 GET {{base_url}}/api/cities/{{cityId}}/pointofinterest/
 Accept: application/json
 
 ###
 
-@pointOfInterest = 2
+@pointOfInterest = 1
 GET {{base_url}}/api/cities/{{cityId}}/pointofinterest/{{pointOfInterest}}
 Accept: application/json
 

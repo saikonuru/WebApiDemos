@@ -11,7 +11,7 @@ public class CityDto
     public string Name { get; set; } = string.Empty;
     public string? Description { get; set; }
 
-    public int NumberOfPointOfInterest => PointOfInterest.Count();
-    public IEnumerable<PointOfInterestDto> PointOfInterest { get; set; } = [];
+    public int NumberOfPointOfInterest => PointOfInterests.Count();
+    public IEnumerable<PointOfInterestDto> PointOfInterests { get; set; } = [];
 }
     

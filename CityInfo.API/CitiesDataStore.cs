@@ -13,7 +13,7 @@ public class CitiesDataStore
     {
         Cities =
         [
-            new() {Id =1,Name="Hyderabad",Description ="Historic City;Bhagaya Nagar", PointOfInterest = [
+            new() {Id =1,Name="Hyderabad",Description ="Historic City;Bhagaya Nagar", PointOfInterests = [
                 new() {
                     Id=1,
                     Name ="Golkonda",
@@ -25,7 +25,7 @@ public class CitiesDataStore
                     Description = "Charminar khilla"
                 }
             ] },
-            new() {Id =2,Name="Visakhapatnam",Description ="Vizag;Beach City", PointOfInterest = [
+            new() {Id =2,Name="Visakhapatnam",Description ="Vizag;Beach City", PointOfInterests = [
                 new() {
                     Id=3,
                     Name ="Beach",

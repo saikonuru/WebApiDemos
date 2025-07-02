@@ -10,9 +10,8 @@ namespace CityInfo.API.Services
 
         public async Task<IEnumerable<City>> GetCitiesAsync() => await cityInfoContext.Cities.ToListAsync();
 
-        public async Task<City?> GetCityAsync(int cityId) => await cityInfoContext.Cities.OrderBy(c => c.Id).FirstOrDefaultAsync(c => c.Id == cityId);
 
-        public async Task<City?> GetCityAsync(int cityId, bool includePointOfInterest)
+        public async Task<City?> GetCityAsync(int cityId, bool includePointOfInterest = false)
         {
             var query = cityInfoContext.Cities.AsQueryable();
 
@@ -22,16 +21,13 @@ namespace CityInfo.API.Services
             return await query.FirstOrDefaultAsync(c => c.Id == cityId);
         }
 
-        public async Task<PointOfInterest?> GetPointOfInterestAsync(int cityId, int pointOfInterestId)
-        {
-            return await cityInfoContext.PointOfInterest
-                .FirstOrDefaultAsync(p => p.CityId == cityId && p.Id == pointOfInterestId);
-        }
+        public async Task<bool> CityExists(int cityId) =>
+            await cityInfoContext.Cities.AnyAsync(c => c.Id == cityId);
 
-        public async Task<IEnumerable<PointOfInterest>> GetPointOfInterestsAsync(int cityId)
-        {
-            return await cityInfoContext.PointOfInterest
-                .Where(p => p.CityId == cityId).ToListAsync();
-        }
+        public async Task<PointOfInterest?> GetPointOfInterestAsync(int cityId, int pointOfInterestId) =>
+            await cityInfoContext.PointOfInterest.FirstOrDefaultAsync(p => p.CityId == cityId && p.Id == pointOfInterestId);
+
+        public async Task<IEnumerable<PointOfInterest>> GetPointOfInterestsAsync(int cityId) =>
+            await cityInfoContext.PointOfInterest.Where(p => p.CityId == cityId).ToListAsync();
     }
 }

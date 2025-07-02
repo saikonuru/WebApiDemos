@@ -25,7 +25,7 @@ namespace CityInfo.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PointOfInterest",
+                name: "PointOfInterests",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -46,7 +46,7 @@ namespace CityInfo.API.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_PointOfInterest_CityId",
-                table: "PointOfInterest",
+                table: "PointOfInterests",
                 column: "CityId");
         }
 
@@ -54,7 +54,7 @@ namespace CityInfo.API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "PointOfInterest");
+                name: "PointOfInterests");
 
             migrationBuilder.DropTable(
                 name: "Cities");

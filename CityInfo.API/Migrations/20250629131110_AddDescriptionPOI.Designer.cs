@@ -39,7 +39,7 @@ namespace CityInfo.API.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("CityInfo.API.Entities.PointOfInterest", b =>
+            modelBuilder.Entity("CityInfo.API.Entities.PointOfInterests", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -61,10 +61,10 @@ namespace CityInfo.API.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("PointOfInterest");
+                    b.ToTable("PointOfInterests");
                 });
 
-            modelBuilder.Entity("CityInfo.API.Entities.PointOfInterest", b =>
+            modelBuilder.Entity("CityInfo.API.Entities.PointOfInterests", b =>
                 {
                     b.HasOne("CityInfo.API.Entities.City", "City")
                         .WithMany("PointOfInterests")
