@@ -33,7 +33,7 @@ namespace CityInfo.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
                 });
 
             modelBuilder.Entity("CityInfo.API.Entities.PointOfInterests", b =>
@@ -58,7 +58,7 @@ namespace CityInfo.API.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("PointOfInterests");
+                    b.ToTable("PointOfInterests", (string)null);
                 });
 
             modelBuilder.Entity("CityInfo.API.Entities.PointOfInterests", b =>
