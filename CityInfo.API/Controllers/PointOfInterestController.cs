@@ -14,22 +14,12 @@ namespace CityInfo.API.Controllers
 {
     [Route("api/cities/{cityId}/pointofinterest")]
     [ApiController]
-    public class PointOfInterestController : ControllerBase
+    public class PointOfInterestController(ILogger<PointOfInterestController> logger, IMailService mailService, ICityRepository cityRepository, IMapper mapper) : ControllerBase
     {
-        private readonly ILogger<PointOfInterestController> _logger;
-        private readonly IMailService _mailService;
-        private readonly ICityRepository cityRepository;
-        private readonly IMapper mapper;
-
-        public PointOfInterestController(ILogger<PointOfInterestController> logger, IMailService mailService,  ICityRepository  cityRepository, IMapper mapper)
-        {
-            _logger = logger ?? throw new ArgumentException(null, nameof(logger));
-            _mailService = mailService ?? throw new ArgumentException(null, nameof(mailService));
-      
-            this.cityRepository = cityRepository ?? throw new ArgumentNullException(nameof(cityRepository));
-            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-        }
-
+        private readonly ILogger<PointOfInterestController> _logger = logger ?? throw new ArgumentException(null, nameof(logger));
+        private readonly IMailService _mailService = mailService ?? throw new ArgumentException(null, nameof(mailService));
+        private readonly ICityRepository cityRepository = cityRepository ?? throw new ArgumentNullException(nameof(cityRepository));
+        private readonly IMapper mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PointOfInterestDto>>> GetPointOfInterests(int cityId)
@@ -42,7 +32,8 @@ namespace CityInfo.API.Controllers
                     return NotFound();
                 }
                 var pointOfInterestsForCity = await cityRepository.GetPointOfInterestsAsync(cityId);
-                return Ok(mapper.Map<IEnumerable<PointOfInterestDto>>(pointOfInterestsForCity));
+                IEnumerable<PointOfInterestDto> result = mapper.Map<IEnumerable<PointOfInterestDto>>(pointOfInterestsForCity);
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -55,8 +46,9 @@ namespace CityInfo.API.Controllers
         [HttpGet("{pointInterestId}", Name = "GetPointOfInterest")]
         public async Task<ActionResult<PointOfInterestDto>> GetPointOfInterestAsync(int cityId, int pointInterestId)
         {
-            var pointOfInterest = await cityRepository.GetPointOfInterestAsync(cityId,pointInterestId);
-            return (pointOfInterest is null) ? NotFound() : Ok(mapper.Map<PointOfInterestDto>(pointOfInterest));
+            Entities.PointOfInterest? pointOfInterest = await cityRepository.GetPointOfInterestAsync(cityId, pointInterestId);
+            PointOfInterestDto result = mapper.Map<PointOfInterestDto>(pointOfInterest);
+            return (pointOfInterest is null) ? NotFound() : Ok(result);
         }
 
         [HttpPost]
@@ -64,14 +56,14 @@ namespace CityInfo.API.Controllers
         {
             if (!await cityRepository.CityExistsAsync(cityId)) return NotFound();
 
-            var pointOfInterestEntity = mapper.Map<Entities.PointOfInterest>(pointOfInterestDto);
+            Entities.PointOfInterest pointOfInterestEntity = mapper.Map<Entities.PointOfInterest>(pointOfInterestDto);
 
             await cityRepository.AddPointsOfInterest(cityId, pointOfInterestEntity);
 
-            await cityRepository.SaveChangesAsync();    
+            await cityRepository.SaveChangesAsync();
 
-            var pointOfInterestsForCity = mapper.Map<Models.PointOfInterestDto>(pointOfInterestEntity);
-    
+            PointOfInterestDto pointOfInterestsForCity = mapper.Map<PointOfInterestDto>(pointOfInterestEntity);
+
 
             return CreatedAtRoute("GetPointOfInterest", new { cityId, pointInterestId = pointOfInterestsForCity.Id }, pointOfInterestsForCity);
         }
@@ -86,7 +78,7 @@ namespace CityInfo.API.Controllers
 
 
             if (pointOfInterestEntity is null) return NotFound();
-            mapper.Map(pointOfInterestDto,pointOfInterestEntity);
+            mapper.Map(pointOfInterestDto, pointOfInterestEntity);
             await cityRepository.SaveChangesAsync();
 
             return NoContent();
@@ -95,14 +87,14 @@ namespace CityInfo.API.Controllers
         [HttpPatch("{pointInterestId}")]
         public async Task<IActionResult> PatchPointOfInterestAsync(int cityId, int pointInterestId, JsonPatchDocument<PointOfInterestUpdateDto> patchDocument)
         {
-          
+
             if (!await cityRepository.CityExistsAsync(cityId)) return NotFound();
 
             var pointOfInterestEntity = await cityRepository.GetPointOfInterestAsync(cityId, pointInterestId);
 
             if (pointOfInterestEntity is null) return NotFound();
 
-            var poiToPatch = mapper.Map<PointOfInterestUpdateDto>(pointOfInterestEntity);
+            PointOfInterestUpdateDto poiToPatch = mapper.Map<PointOfInterestUpdateDto>(pointOfInterestEntity);
 
             patchDocument.ApplyTo(poiToPatch, ModelState);
 
