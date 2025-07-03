@@ -38,31 +38,32 @@ GET {{base_url}}/api/cities/{{cityId}}/?includePointOfInterests=true
 Accept: application/json
 
 
-###
+###"
 GET {{base_url}}/api/cities/{{cityId}}/pointofinterest/
 Accept: application/json
 
 ###
 
-@pointOfInterest = 1
+@pointOfInterest = 8
 GET {{base_url}}/api/cities/{{cityId}}/pointofinterest/{{pointOfInterest}}
 Accept: application/json
 
 ###
 
+
 POST {{base_url}}/api/cities/{{cityId}}/pointofinterest/
 content-type: application/json
 {
-  "name" :"BHEL6",
-  "description": "Bharat heavy electronics limited"
+  "name" :"ECIL",
+  "description": "Electronics corporation of India"
 }
 
 ###
 PUT {{base_url}}/api/cities/{{cityId}}/pointofinterest/{{pointOfInterest}}
 content-type: application/json
 {
-  "name" :"BHEL3",
-  "description": "Bharat heavy electronics limited3"
+  "name" :"BHEL88",
+  "description": "Bharat heavy electronics limited-Hyd"
 }
 
 ###
@@ -73,12 +74,12 @@ content-type: application/json
   {
     "op":"replace",
     "path":"/name",
-    "value" :"BHEL5"
+    "value" :"BHEL-Hyd"
   },
   {
     "op":"replace",
     "path":"/description",
-    "value" :"updated- BHEL5"
+    "value" :"Bharat heavy electronics limited-Hyderabad"
   }
 ]
 ###
