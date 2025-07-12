@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿// Ignore Spelling: Validator
+
+using FluentValidation;
 
 namespace CityInfo.API.Models
 {

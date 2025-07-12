@@ -8,8 +8,42 @@ namespace CityInfo.API.Services
     {
         private readonly CityInfoContext cityInfoContext = cityInfoContext ?? throw new ArgumentNullException(nameof(cityInfoContext));
 
-        public async Task<IEnumerable<City>> GetCitiesAsync() => await cityInfoContext.Cities.ToListAsync();
+        public async Task<(IEnumerable<City>, PaginationMetaData)> GetCitiesAsync(string? name, string? searchQuery, int? pageNumber, int? pageSize)
+        {
+            // Start with all cities as a queryable collection
+            var collection = cityInfoContext.Cities.AsQueryable();
 
+            // Filter by exact name if provided
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                name = name.Trim();
+                collection = collection.Where(x => x.Name == name);
+            }
+
+            // Filter by search query if provided (in name or description)
+            if (!string.IsNullOrWhiteSpace(searchQuery))
+            {
+                searchQuery = searchQuery.Trim();
+                collection = collection.Where(a =>
+                    a.Name.Contains(searchQuery) ||
+                    (a.Description != null && a.Description.Contains(searchQuery)));
+            }
+
+            // Ensure pageNumber and pageSize are not null and provide default values if necessary
+            var pageNumberValue = pageNumber ?? 1;
+            var pageSizeValue = pageSize ?? 10;
+            var totalItemCount = await collection.CountAsync();
+
+            var paginationMetaData = new PaginationMetaData(totalItemCount, pageSizeValue, pageNumberValue);
+
+            // Order by name and return as a list
+            var collectionToRuturn = await collection.OrderBy(c => c.Name)
+               .Skip(pageSizeValue * (pageNumberValue - 1))
+               .Take(pageSizeValue)
+               .ToListAsync();
+
+            return (collectionToRuturn, paginationMetaData);
+        }
 
         public async Task<City?> GetCityAsync(int cityId, bool includePointOfInterest = false)
         {
@@ -38,7 +72,7 @@ namespace CityInfo.API.Services
 
 
         public void DeletePointOfInterest(PointOfInterest pointOfInterest) => cityInfoContext.PointOfInterest.Remove(pointOfInterest);
-       
+
 
         public async Task<bool> SaveChangesAsync()
         {

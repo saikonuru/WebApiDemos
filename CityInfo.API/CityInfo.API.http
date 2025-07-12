@@ -34,6 +34,15 @@ GET {{base_url}}/api/cities/{{cityId}}
 Accept: application/json
 
 ###
+GET {{base_url}}/api/cities?searchQuery=Capital&name=Hyderabad
+Accept: application/json
+
+###
+
+GET {{base_url}}/api/cities?pageNumber=1&pageSize=100
+Accept: application/json
+
+###
 GET {{base_url}}/api/cities/{{cityId}}/?includePointOfInterests=true
 Accept: application/json
 
