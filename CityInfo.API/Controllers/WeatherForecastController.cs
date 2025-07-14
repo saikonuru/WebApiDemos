@@ -1,8 +1,9 @@
+using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CityInfo.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
    
     public class WeatherForecastController : ControllerBase
@@ -21,6 +22,7 @@ namespace CityInfo.API.Controllers
 
         //[HttpGet(Name = "GetWeatherForecast")]
         [HttpGet("GetWeatherForecast")]
+        [ApiVersion(0.1,Deprecated =true)]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

@@ -1,4 +1,6 @@
-﻿using CityInfo.API.Models;
+﻿// Ignore Spelling: Validator
+
+using CityInfo.API.Models;
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -7,8 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace CityInfo.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
-    [Authorize]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    //[Authorize]
     public class PersonController : ControllerBase
     {
         private readonly IValidator<Person> _personValidator;

@@ -1,5 +1,6 @@
 // Ignore Spelling: Dto validator
 
+using Asp.Versioning;
 using AutoMapper;
 using CityInfo.API.Models;
 using CityInfo.API.Services;
@@ -13,9 +14,11 @@ using System.Net;
 
 namespace CityInfo.API.Controllers
 {
-    [Route("api/cities/{cityId}/pointofinterest")]
+    [Route("api/v{version:apiVersion}/cities/{cityId}/pointofinterest")]
     [ApiController]
     [Authorize(Policy = "MustBeFromLondon")]
+    [ApiVersion(1)]
+    [ApiVersion(2)]
     public class PointOfInterestController(ILogger<PointOfInterestController> logger, IMailService mailService, ICityRepository cityRepository, IMapper mapper) : ControllerBase
     {
         private readonly ILogger<PointOfInterestController> _logger = logger ?? throw new ArgumentException(null, nameof(logger));
