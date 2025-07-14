@@ -4,6 +4,7 @@ using AutoMapper;
 using CityInfo.API.Models;
 using CityInfo.API.Services;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ namespace CityInfo.API.Controllers
 {
     [Route("api/cities/{cityId}/pointofinterest")]
     [ApiController]
+    [Authorize(Policy = "MustBeFromLondon")]
     public class PointOfInterestController(ILogger<PointOfInterestController> logger, IMailService mailService, ICityRepository cityRepository, IMapper mapper) : ControllerBase
     {
         private readonly ILogger<PointOfInterestController> _logger = logger ?? throw new ArgumentException(null, nameof(logger));
@@ -26,6 +28,14 @@ namespace CityInfo.API.Controllers
         {
             try
             {
+                var cityName = User.Claims.FirstOrDefault(c => c.Type == "city")?.Value;
+
+                if (string.IsNullOrEmpty(cityName) || !await cityRepository.CityNameMatchWithIdAsync(cityId, cityName))
+                {
+                    return Forbid();
+                }
+
+
                 if (!await cityRepository.CityExistsAsync(cityId))
                 {
                     _logger.LogInformation($"City with id {cityId} wasn't found when accessing points of interest");

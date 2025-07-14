@@ -4,11 +4,21 @@
 @port =   5096 
 @base_url = http://localhost:{{port}}
 
+# claim - London
+
+# @auth_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZ2l2ZW4tbmFtZSI6IkpvaG4iLCJmYW1pbHktbmFtZSI6IkRvZSIsImNpdHkiOiJMb25kb24iLCJuYmYiOjE3NTI0MjA3NTcsImV4cCI6MTc1MjUwNzE1NywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDk2IiwiYXVkIjoiY2l0eWluZm9hcGkifQ.ePFiFxJQ3RFOihOeRDb4SgxXY84-diN1UDXQFhlBZpk
+
+# claim - hyderabad
+# @auth_token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZ2l2ZW4tbmFtZSI6IkpvaG4iLCJmYW1pbHktbmFtZSI6IkRvZSIsImNpdHkiOiJIeWRlcmFiYWQiLCJuYmYiOjE3NTI0MjQ1NTEsImV4cCI6MTc1MjUxMDk1MSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDk2IiwiYXVkIjoiY2l0eWluZm9hcGkifQ.tp-puHr5seXOM-a2raaVkMrP_ZtMYlBCgb-HST5Zry4
+
+# using dotnet user-jwts
+
+@auth_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InNhaXJhbSIsInN1YiI6InNhaXJhbSIsImp0aSI6ImZhYzg1MzhmIiwiY2l0eSI6IkxvbmRvbiIsImF1ZCI6ImNpdHlpbmZvYXBpIiwibmJmIjoxNzUyNDg0NDI3LCJleHAiOjE3NjA0MzMyMjcsImlhdCI6MTc1MjQ4NDQyNywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDk2In0.M9sLG3uKw6H7UWIXYkd8kES6klMSt_WOudRRcB_EsZg
+###
 GET {{base_url}}/api/weatherforecast/GetWeatherForecast
 Accept: application/json
 
 ###   
-
 POST {{base_url}}/api/person/
 content-type: application/json
 {
@@ -22,86 +32,93 @@ content-type: application/json
 
 GET {{base_url}}/api/cities/
 Accept: application/json
+Authorization: Bearer {{auth_token}}
 
 ###
 GET {{base_url}}/api/cities/
 Accept: application/xml
+Authorization: Bearer {{auth_token}}
 
 ###
 
 @cityId = 1
 GET {{base_url}}/api/cities/{{cityId}}
 Accept: application/json
+Authorization: Bearer {{auth_token}}
 
 ###
 GET {{base_url}}/api/cities?searchQuery=Capital&name=Hyderabad
 Accept: application/json
-
+Authorization: Bearer {{auth_token}}
 ###
 
 GET {{base_url}}/api/cities?pageNumber=1&pageSize=100
 Accept: application/json
-
+Authorization: Bearer {{auth_token}}
 ###
 GET {{base_url}}/api/cities/{{cityId}}/?includePointOfInterests=true
 Accept: application/json
+Authorization: Bearer {{auth_token}}
 
-
-###"
+###
 GET {{base_url}}/api/cities/{{cityId}}/pointofinterest/
 Accept: application/json
-
+Authorization: Bearer {{auth_token}}
 ###
 
-@pointOfInterest = 8
+@pointOfInterest = 11
 GET {{base_url}}/api/cities/{{cityId}}/pointofinterest/{{pointOfInterest}}
 Accept: application/json
-
+Authorization: Bearer {{auth_token}}
 ###
-
-
 POST {{base_url}}/api/cities/{{cityId}}/pointofinterest/
+Authorization: Bearer {{auth_token}}
 content-type: application/json
 {
-  "name" :"ECIL",
-  "description": "Electronics corporation of India"
+  "name" :"DRDO",
+  "description": "Defenc research and Development Origin"
 }
 
 ###
 PUT {{base_url}}/api/cities/{{cityId}}/pointofinterest/{{pointOfInterest}}
+Authorization: Bearer {{auth_token}}
 content-type: application/json
 {
-  "name" :"BHEL88",
-  "description": "Bharat heavy electronics limited-Hyd"
+  "name" :"DRDO",
+  "description": "Defenc research and Development Origin Of India"
 }
 
 ###
 
 PATCH {{base_url}}/api/cities/{{cityId}}/pointofinterest/{{pointOfInterest}}
+Authorization: Bearer {{auth_token}}
 content-type: application/json
 [
   {
     "op":"replace",
     "path":"/name",
-    "value" :"BHEL-Hyd"
+    "value" :"DRDO-Hyd"
   },
   {
     "op":"replace",
     "path":"/description",
-    "value" :"Bharat heavy electronics limited-Hyderabad"
+    "value" :"Defenc Research and Development Origin Of India..."
   }
 ]
 ###
 DELETE {{base_url}}/api/cities/{{cityId}}/pointofinterest/{{pointOfInterest}}
+Authorization: Bearer {{auth_token}}
 Accept: application/json
 
 ###
 GET {{base_url}}/api/Files/1
+Authorization: Bearer {{auth_token}}
 content-type: application/pdf
 
 ###
 
 POST {{base_url}}/api/Files/
+Authorization: Bearer {{auth_token}}
 Content-Type: multipart/form-data; boundary=boundary
 
 --boundary
@@ -110,4 +127,18 @@ Content-Type: application/pdf
 
 < C:\Users\saira\source\repos\CityInfo.API\CityInfo.API\1.Migrate a Website to Azure Web Apps.pdf
 --boundary--
+###
+# @name loginRequest
+POST {{base_url}}/api/Authentication/authenticate
+content-type: application/json
+{
+  "username" :"Sairam",
+  "password": "1234567890"
+}
+
+> {%
+    // This script captures the 'token' from the JSON response body 
+    // and saves it to a global variable named 'authToken'.
+    client.global.set("authToken", response.body.token);
+%}
 ###

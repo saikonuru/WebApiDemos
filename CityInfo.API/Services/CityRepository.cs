@@ -55,6 +55,9 @@ namespace CityInfo.API.Services
             return await query.FirstOrDefaultAsync(c => c.Id == cityId);
         }
 
+        public async Task<bool> CityNameMatchWithIdAsync(int cityId,string cityName) =>
+                    await cityInfoContext.Cities.AnyAsync(c => (c.Id == cityId && c.Name == cityName));
+
         public async Task<bool> CityExistsAsync(int cityId) =>
             await cityInfoContext.Cities.AnyAsync(c => c.Id == cityId);
 

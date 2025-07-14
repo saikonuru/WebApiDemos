@@ -1,3 +1,4 @@
+using System.Text;
 using CityInfo.API;
 using CityInfo.API.DbContexts;
 using CityInfo.API.Models;
@@ -6,10 +7,9 @@ using FluentValidation;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using Serilog.AspNetCore;
-using System;
 
 Log.Logger = new LoggerConfiguration()
                  .MinimumLevel.Debug()
@@ -36,6 +36,30 @@ builder.Services.AddDbContext<CityInfoContext>(dbContextOptions => dbContextOpti
 
 builder.Services.AddScoped<ICityRepository, CityRepository>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAuthentication("Bearer")
+        .AddJwtBearer(options =>
+        {
+
+            options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = builder.Configuration["Authentication:Issuer"],
+                ValidAudience = builder.Configuration["Authentication:Audience"],
+                //IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Authentication:SecurityForKey"]))
+                IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(builder.Configuration["Authentication:SecurityForKey"]))
+            };
+        });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("MustBeFromLondon", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireClaim("city", "London");
+    });
+});
 
 builder.Services.AddProblemDetails(options =>
 {
@@ -45,6 +69,8 @@ builder.Services.AddProblemDetails(options =>
         ctx.ProblemDetails.Extensions.Add("Server", Environment.MachineName);
     };
 });
+
+
 
 builder.Services.AddSwaggerGen(c =>
 {
