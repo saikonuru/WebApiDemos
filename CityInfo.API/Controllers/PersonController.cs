@@ -1,5 +1,6 @@
 ﻿// Ignore Spelling: Validator
 
+using Asp.Versioning;
 using CityInfo.API.Models;
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
@@ -8,8 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CityInfo.API.Controllers
 {
-    [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiController]
+    [ApiVersion(1.0)] // Optional as default version is mentioned in Program.cs 
     //[Authorize]
     public class PersonController : ControllerBase
     {

@@ -16,7 +16,7 @@ namespace CityInfo.API.Controllers
 {
     [Route("api/v{version:apiVersion}/cities/{cityId}/pointofinterest")]
     [ApiController]
-    [Authorize(Policy = "MustBeFromLondon")]
+    //[Authorize(Policy = "MustBeFromLondon")]
     [ApiVersion(1)]
     [ApiVersion(2)]
     public class PointOfInterestController(ILogger<PointOfInterestController> logger, IMailService mailService, ICityRepository cityRepository, IMapper mapper) : ControllerBase
@@ -25,7 +25,11 @@ namespace CityInfo.API.Controllers
         private readonly IMailService _mailService = mailService ?? throw new ArgumentException(null, nameof(mailService));
         private readonly ICityRepository cityRepository = cityRepository ?? throw new ArgumentNullException(nameof(cityRepository));
         private readonly IMapper mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PointOfInterestDto>>> GetPointOfInterests(int cityId)
         {
@@ -55,7 +59,12 @@ namespace CityInfo.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "A problem happened while handling your request");
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="pointInterestId"></param>
+        /// <returns></returns>
         [HttpGet("{pointInterestId}", Name = "GetPointOfInterest")]
         public async Task<ActionResult<PointOfInterestDto>> GetPointOfInterestAsync(int cityId, int pointInterestId)
         {
@@ -63,6 +72,12 @@ namespace CityInfo.API.Controllers
             PointOfInterestDto result = mapper.Map<PointOfInterestDto>(pointOfInterest);
             return (pointOfInterest is null) ? NotFound() : Ok(result);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="pointOfInterestDto"></param>
+        /// <returns></returns>
 
         [HttpPost]
         public async Task<IActionResult> CreatePointOfInterestAsync(int cityId, PointOfInterestCreateDto pointOfInterestDto)
@@ -80,6 +95,13 @@ namespace CityInfo.API.Controllers
 
             return CreatedAtRoute("GetPointOfInterest", new { cityId, pointInterestId = pointOfInterestsForCity.Id }, pointOfInterestsForCity);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="pointInterestId"></param>
+        /// <param name="pointOfInterestDto"></param>
+        /// <returns></returns>
 
         [HttpPut("{pointInterestId}")]
         public async Task<IActionResult> UpdatePointOfInterestAsync(int cityId, int pointInterestId, PointOfInterestUpdateDto pointOfInterestDto)
@@ -97,6 +119,13 @@ namespace CityInfo.API.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="pointInterestId"></param>
+        /// <param name="patchDocument"></param>
+        /// <returns></returns>
         [HttpPatch("{pointInterestId}")]
         public async Task<IActionResult> PatchPointOfInterestAsync(int cityId, int pointInterestId, JsonPatchDocument<PointOfInterestUpdateDto> patchDocument)
         {
@@ -119,6 +148,12 @@ namespace CityInfo.API.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="pointInterestId"></param>
+        /// <returns></returns>
         [HttpDelete("{pointInterestId}")]
         public async Task<IActionResult> DeletePointOfInterestAsync(int cityId, int pointInterestId)
         {

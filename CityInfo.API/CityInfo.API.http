@@ -1,25 +1,29 @@
+@CityInfo.API_HostAddress = http://localhost:5096
 #production port 
 # @port = 53847 #IIS Production
 #development  port
 @port =   5096 
 @base_url = http://localhost:{{port}}
+@apiVersion = 1
 
 # claim - London
 
-# @auth_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZ2l2ZW4tbmFtZSI6IkpvaG4iLCJmYW1pbHktbmFtZSI6IkRvZSIsImNpdHkiOiJMb25kb24iLCJuYmYiOjE3NTI0MjA3NTcsImV4cCI6MTc1MjUwNzE1NywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDk2IiwiYXVkIjoiY2l0eWluZm9hcGkifQ.ePFiFxJQ3RFOihOeRDb4SgxXY84-diN1UDXQFhlBZpk
+@auth_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZ2l2ZW4tbmFtZSI6IkpvaG4iLCJmYW1pbHktbmFtZSI6IkRvZSIsImNpdHkiOiJMb25kb24iLCJuYmYiOjE3NTI3MzQwODYsImV4cCI6MTc1MjgyMDQ4NiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDk2IiwiYXVkIjoiY2l0eWluZm9hcGkifQ.5k8bn-TkvgdPZ3MsXtnZtX7otEkYm1JmEMmHWQQN0I0
 
 # claim - hyderabad
 # @auth_token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZ2l2ZW4tbmFtZSI6IkpvaG4iLCJmYW1pbHktbmFtZSI6IkRvZSIsImNpdHkiOiJIeWRlcmFiYWQiLCJuYmYiOjE3NTI0MjQ1NTEsImV4cCI6MTc1MjUxMDk1MSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDk2IiwiYXVkIjoiY2l0eWluZm9hcGkifQ.tp-puHr5seXOM-a2raaVkMrP_ZtMYlBCgb-HST5Zry4
 
 # using dotnet user-jwts
 
-@auth_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InNhaXJhbSIsInN1YiI6InNhaXJhbSIsImp0aSI6ImZhYzg1MzhmIiwiY2l0eSI6IkxvbmRvbiIsImF1ZCI6ImNpdHlpbmZvYXBpIiwibmJmIjoxNzUyNDg0NDI3LCJleHAiOjE3NjA0MzMyMjcsImlhdCI6MTc1MjQ4NDQyNywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDk2In0.M9sLG3uKw6H7UWIXYkd8kES6klMSt_WOudRRcB_EsZg
+# @auth_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InNhaXJhbSIsInN1YiI6InNhaXJhbSIsImp0aSI6ImZhYzg1MzhmIiwiY2l0eSI6IkxvbmRvbiIsImF1ZCI6ImNpdHlpbmZvYXBpIiwibmJmIjoxNzUyNDg0NDI3LCJleHAiOjE3NjA0MzMyMjcsImlhdCI6MTc1MjQ4NDQyNywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDk2In0.M9sLG3uKw6H7UWIXYkd8kES6klMSt_WOudRRcB_EsZg
 ###
-GET {{base_url}}/api/weatherforecast/GetWeatherForecast?api-version=0.1
+
+GET {{base_url}}/api/v{{apiVersion}}/weatherforecast/GetWeatherForecast
 Accept: application/json
 
-###   
-POST {{base_url}}/api/person/
+###
+POST {{base_url}}/api/v{{apiVersion}}/person/
+Accept: application/json
 content-type: application/json
 {
 
@@ -30,94 +34,94 @@ content-type: application/json
 }
 ###
 
-GET {{base_url}}/api/cities/
+GET {{base_url}}/api/v{{apiVersion}}/cities/
 Accept: application/json
 Authorization: Bearer {{auth_token}}
 
 ###
-GET {{base_url}}/api/cities/
+GET {{base_url}}/api/v{{apiVersion}}/cities/
 Accept: application/xml
 Authorization: Bearer {{auth_token}}
 
 ###
 
 @cityId = 1
-GET {{base_url}}/api/cities/{{cityId}}
+GET {{base_url}}/api/v{{apiVersion}}/cities/{{cityId}}
 Accept: application/json
 Authorization: Bearer {{auth_token}}
 
 ###
-GET {{base_url}}/api/cities?searchQuery=Capital&name=Hyderabad
+GET {{base_url}}/api/v{{apiVersion}}/cities?searchQuery=Capital&name=Hyderabad
 Accept: application/json
 Authorization: Bearer {{auth_token}}
 ###
 
-GET {{base_url}}/api/cities?pageNumber=1&pageSize=100
+GET {{base_url}}/api/v{{apiVersion}}/cities?pageNumber=1&pageSize=100
 Accept: application/json
 Authorization: Bearer {{auth_token}}
 ###
-GET {{base_url}}/api/v1/cities/{{cityId}}/?includePointOfInterests=true
+GET {{base_url}}/api/v{{apiVersion}}/cities/{{cityId}}/?includePointOfInterests=true
 Accept: application/json
 Authorization: Bearer {{auth_token}}
 
 ###
-GET {{base_url}}/api/v2/cities/{{cityId}}/pointofinterest
+GET {{base_url}}/api/v{{apiVersion}}/cities/{{cityId}}/pointofinterest
 Accept: application/json
 Authorization: Bearer {{auth_token}}
 ###
 
-@pointOfInterest = 11
-GET {{base_url}}/api/cities/{{cityId}}/pointofinterest/{{pointOfInterest}}
+@pointOfInterest = 12
+GET {{base_url}}/api/v{{apiVersion}}/cities/{{cityId}}/pointofinterest/{{pointOfInterest}}
 Accept: application/json
 Authorization: Bearer {{auth_token}}
 ###
-POST {{base_url}}/api/cities/{{cityId}}/pointofinterest/
+POST {{base_url}}/api/v{{apiVersion}}/cities/{{cityId}}/pointofinterest/
 Authorization: Bearer {{auth_token}}
 content-type: application/json
 {
-  "name" :"DRDO",
-  "description": "Defenc research and Development Origin"
+  "name" :"Agni",
+  "description": "Agni Missile systems"
 }
 
 ###
-PUT {{base_url}}/api/cities/{{cityId}}/pointofinterest/{{pointOfInterest}}
+PUT {{base_url}}/api/v{{apiVersion}}/cities/{{cityId}}/pointofinterest/{{pointOfInterest}}
 Authorization: Bearer {{auth_token}}
 content-type: application/json
 {
-  "name" :"DRDO",
-  "description": "Defenc research and Development Origin Of India"
+  "name" :"Agni",
+  "description": "Agni Missile systems - India"
 }
 
 ###
 
-PATCH {{base_url}}/api/cities/{{cityId}}/pointofinterest/{{pointOfInterest}}
+PATCH {{base_url}}/api/v{{apiVersion}}/cities/{{cityId}}/pointofinterest/{{pointOfInterest}}
 Authorization: Bearer {{auth_token}}
 content-type: application/json
 [
   {
     "op":"replace",
     "path":"/name",
-    "value" :"DRDO-Hyd"
+    "value" :"Agni-Hyd"
   },
   {
     "op":"replace",
     "path":"/description",
-    "value" :"Defenc Research and Development Origin Of India..."
+    "value" :"Agni Missile systems - India - Hyderabad"
   }
 ]
 ###
-DELETE {{base_url}}/api/cities/{{cityId}}/pointofinterest/{{pointOfInterest}}
+DELETE {{base_url}}/api/v{{apiVersion}}/cities/{{cityId}}/pointofinterest/{{pointOfInterest}}
 Authorization: Bearer {{auth_token}}
 Accept: application/json
 
 ###
-GET {{base_url}}/api/Files/1
+GET {{base_url}}/api/v{{apiVersion}}/Files/1
 Authorization: Bearer {{auth_token}}
 content-type: application/pdf
 
 ###
 
-POST {{base_url}}/api/Files/
+POST {{base_url}}/api/v{{apiVersion}}/Files/
 Authorization: Bearer {{auth_token}}
 Content-Type: multipart/form-data; boundary=boundary
 
@@ -141,4 +145,10 @@ content-type: application/json
     // and saves it to a global variable named 'authToken'.
     client.global.set("authToken", response.body.token);
 %}
+###
+GET {{CityInfo.API_HostAddress}}/api/v{{apiVersion}}/v{{apiVersion}}/cities
+Authorization: Bearer {{auth_token}}
+###
+
+
 ###

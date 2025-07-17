@@ -37,6 +37,55 @@
             <returns></returns>
             <response code="200">Returns the requested city</response>
         </member>
+        <member name="M:CityInfo.API.Controllers.PointOfInterestController.GetPointOfInterests(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="cityId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CityInfo.API.Controllers.PointOfInterestController.GetPointOfInterestAsync(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="cityId"></param>
+            <param name="pointInterestId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CityInfo.API.Controllers.PointOfInterestController.CreatePointOfInterestAsync(System.Int32,CityInfo.API.Models.PointOfInterestCreateDto)">
+            <summary>
+            
+            </summary>
+            <param name="cityId"></param>
+            <param name="pointOfInterestDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CityInfo.API.Controllers.PointOfInterestController.UpdatePointOfInterestAsync(System.Int32,System.Int32,CityInfo.API.Models.PointOfInterestUpdateDto)">
+            <summary>
+            
+            </summary>
+            <param name="cityId"></param>
+            <param name="pointInterestId"></param>
+            <param name="pointOfInterestDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CityInfo.API.Controllers.PointOfInterestController.PatchPointOfInterestAsync(System.Int32,System.Int32,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{CityInfo.API.Models.PointOfInterestUpdateDto})">
+            <summary>
+            
+            </summary>
+            <param name="cityId"></param>
+            <param name="pointInterestId"></param>
+            <param name="patchDocument"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CityInfo.API.Controllers.PointOfInterestController.DeletePointOfInterestAsync(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="cityId"></param>
+            <param name="pointInterestId"></param>
+            <returns></returns>
+        </member>
         <member name="T:CityInfo.API.Migrations.CityInfoDBInitialMigration">
             <inheritdoc />
         </member>

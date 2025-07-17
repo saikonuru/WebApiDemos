@@ -2,11 +2,15 @@ using System.Reflection;
 using System.Text;
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 using CityInfo.API;
 using CityInfo.API.DbContexts;
 using CityInfo.API.Models;
 using CityInfo.API.Services;
 using FluentValidation;
+using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
@@ -14,15 +18,37 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
-Log.Logger = new LoggerConfiguration()
-                 .MinimumLevel.Debug()
-                 .WriteTo.Console()
-                 .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
-                 .CreateLogger();
+Log.Logger = new LoggerConfiguration().CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog();
+var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+if (environment == Environments.Development)
+{
+    builder.Host.UseSerilog((context, loggerConfiguration) => loggerConfiguration
+        .MinimumLevel.Debug()
+        .WriteTo.Console());
+}
+else if (environment == Environments.Production)
+{ 
+    var keyVaultEndpoint = builder.Configuration["KeyVaultEndpoint"];
+    if (string.IsNullOrEmpty(keyVaultEndpoint)) throw new Exception("Missing KeyVaultEndpoint");
+    var secretClient = new SecretClient(new Uri(keyVaultEndpoint), new DefaultAzureCredential());
+
+    builder.Host.UseSerilog((context, loggerConfiguration) => loggerConfiguration
+        .MinimumLevel.Debug()
+        .WriteTo.Console()
+        .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
+        .WriteTo.ApplicationInsights(
+            new TelemetryConfiguration
+            {
+                InstrumentationKey = builder.Configuration["ApplicationInsights:InstrumentationKey"]
+
+            }, TelemetryConverter.Traces
+        )
+    );
+}
 
 builder.Services.AddControllers(options =>
 {
@@ -43,6 +69,9 @@ builder.Services.AddAuthentication("Bearer")
         .AddJwtBearer(options =>
         {
 
+            var authenticationSecurityKey = builder.Configuration["Authentication:SecurityForKey"];
+            if (string.IsNullOrEmpty(authenticationSecurityKey)) throw new Exception("Missing Authentication:SecurityForKey");
+
             options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
             {
                 ValidateIssuer = true,
@@ -50,19 +79,16 @@ builder.Services.AddAuthentication("Bearer")
                 ValidateIssuerSigningKey = true,
                 ValidIssuer = builder.Configuration["Authentication:Issuer"],
                 ValidAudience = builder.Configuration["Authentication:Audience"],
-                //IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Authentication:SecurityForKey"]))
-                IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(builder.Configuration["Authentication:SecurityForKey"]))
+                IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(authenticationSecurityKey))
             };
         });
 
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("MustBeFromLondon", policy =>
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("MustBeFromLondon", policy =>
     {
         policy.RequireAuthenticatedUser();
         policy.RequireClaim("city", "London");
     });
-});
 
 
 builder.Services.AddApiVersioning(setupAction =>
@@ -79,6 +105,7 @@ builder.Services.AddApiVersioning(setupAction =>
 );
 
 var apiVersionDescriptionProvider = builder.Services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
+
 
 if (apiVersionDescriptionProvider != null)
 {
@@ -115,7 +142,7 @@ if (apiVersionDescriptionProvider != null)
         });
 
         setupAction.AddSecurityRequirement(new()
-        { 
+        {
             {
                 new ()
                 {
@@ -151,7 +178,17 @@ builder.Services.AddTransient<IMailService, LocalMailService>();
 #else
 builder.Services.AddTransient<IMailService, CloudMailService>();
 #endif
+
+
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+});
+
+
 var app = builder.Build();
+
+app.UseForwardedHeaders();
 
 if (!app.Environment.IsDevelopment())
 {
